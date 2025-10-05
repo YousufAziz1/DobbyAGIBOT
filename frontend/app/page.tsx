@@ -12,9 +12,8 @@ export default function LandingPage() {
           <p className="text-gray-600 dark:text-gray-300">
             Professional multi-model AI chat powered by SentientAGI. Clean UI, dark mode, and chat history.
           </p>
-          <div className="flex items-center justify-center gap-4">
-            <Link href="/login" className="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white shadow-soft transition">Login</Link>
-            <Link href="/register" className="px-6 py-3 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition">Register</Link>
+          <div className="flex items-center justify-center">
+            <Link href="/dashboard" className="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white shadow-soft transition">Open App</Link>
           </div>
           <div className="pt-1 text-sm text-gray-500">Built by Yousuf • @SentientAGI</div>
         </div>
