@@ -3,9 +3,22 @@ import React, { useEffect, useState } from 'react';
 import { apiClient } from '../lib/api';
 
 export default function ModelSelector({ token, value, onChange }:{ token?: string|null; value?: string; onChange: (v: string)=>void }) {
-  const [models, setModels] = useState<Array<{ id: string; label: string }>>([]);
+  const safeList = [{ id: 'openai/gpt-4o-mini', label: 'OpenAI GPT-4o Mini' }];
+  const [models, setModels] = useState<Array<{ id: string; label: string }>>(safeList);
+
   useEffect(() => {
-    apiClient(token || undefined).get('/models').then(res => setModels(res.data)).catch(()=>setModels([]));
+    apiClient(token || undefined)
+      .get('/models')
+      .then(res => {
+        const list = Array.isArray(res.data) && res.data.length ? res.data : safeList;
+        setModels(list);
+        if (!value && list[0]?.id) onChange(list[0].id);
+      })
+      .catch(() => {
+        setModels(safeList);
+        if (!value && safeList[0]?.id) onChange(safeList[0].id);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
   return (
     <select
